@@ -40,3 +40,9 @@ app:
         5) Add all the relevant hashtags at the end which can gather more audience, maybe related to topic or in general.
   
       Make it feel like something a real experienced developer would post — insightful, slightly opinionated, and valuable.
+      
+
+telegram:
+  bot:
+    token: ${TELEGRAM_TOKEN}
+    chat_id: ${CHAT_ID}

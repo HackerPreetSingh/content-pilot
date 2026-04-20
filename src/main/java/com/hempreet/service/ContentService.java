@@ -3,7 +3,6 @@ package com.hempreet.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hempreet.configuration.PropertiesLoader;
 import com.hempreet.dto.Counter;
-import com.hempreet.dto.PromptContextSetter;
 import com.hempreet.utils.AppConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +20,7 @@ public class ContentService {
     private final AiService aiService;
     private final ObjectMapper objectMapper;
     private final PropertiesLoader loader;
+    private final TelegramService telegramService;
     File f = new File("/tmp/counter.json");
 
     @PostConstruct
@@ -52,12 +52,19 @@ public class ContentService {
             indexes.setAngleIndex(0);
         }
 
-
         indexes.setTopicIndex(indexes.getTopicIndex()+1);
 
         objectMapper.writeValue(f, indexes);
 
+        return makeApiCall(topic, format, angle, false);
+    }
+
+    public String makeApiCall(String topic, String format, String angle, boolean isCustomCall) {
         String formatedPrompt = loader.getPrompt().formatted(topic, format, angle);
-        return aiService.callModel(formatedPrompt);
+        String response = aiService.callModel(formatedPrompt);
+        if (isCustomCall) {
+            telegramService.sendMessage(response);
+        }
+        return response;
     }
 }
