@@ -1,0 +1,15 @@
+name: Content Generator Cron
+
+on:
+  schedule:
+    - cron: '0 6 */2 * *'   # every 2 days at 6 AM UTC (~11:30 AM IST)
+  workflow_dispatch:
+
+jobs:
+  trigger-api:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Call Content API
+        run: |
+          curl -X GET https://content-pilot-j31k.onrender.com/getContent
