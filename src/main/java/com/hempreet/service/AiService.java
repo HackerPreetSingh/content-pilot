@@ -41,7 +41,7 @@ public class AiService {
                 log.warn("Model Limit Exhausted: {}", model);
             }
         }
-        throw new RuntimeException("All Models Failed");
+        return "Both models exhausted";
     }
 
 
