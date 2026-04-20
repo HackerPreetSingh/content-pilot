@@ -13,7 +13,7 @@ jobs:
       - name: Call API
         id: api
         run: |
-          RESPONSE=$(curl -s https://content-pilot-j31k.onrender.com/getContent)
+          RESPONSE=$(curl -s https://content-pilot-j31k.onrender.com/getAutomatedContent)
           echo "response<<EOF" >> $GITHUB_OUTPUT
           echo "$RESPONSE" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
