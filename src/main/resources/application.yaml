@@ -11,6 +11,8 @@ app:
   ai:
     models:
       - gemini-2.5-flash
+      - gemini-3-flash
+      - gemini-3.1-flash-lite
       - gemini-2.5-flash-lite
     prompt: |
       You are a senior backend engineer writing an engaging LinkedIn post that developers actually enjoy reading.
@@ -24,7 +26,6 @@ app:
         - Output ONLY the final post. No explanations or extra text.
         - Start with a strong, curiosity-driven hook.
         - Make it engaging, slightly conversational, and human — not robotic.
-        - Use short paragraphs for readability.
         - Add relevant emojis naturally to make it look interesting.
         - Focus on practical insight, real-world thinking, or relatable developer pain points.
         - Avoid generic textbook explanations.
