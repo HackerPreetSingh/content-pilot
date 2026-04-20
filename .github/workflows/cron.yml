@@ -6,10 +6,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  trigger-api:
+  generate-and-send:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Call Content API
+      - name: Call API
+        id: api
         run: |
-          curl -X GET https://content-pilot-j31k.onrender.com/getContent
+          RESPONSE=$(curl -s https://content-pilot-j31k.onrender.com/getContent)
+          echo "response<<EOF" >> $GITHUB_OUTPUT
+          echo "$RESPONSE" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Send to Telegram
+        run: |
+          curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage \
+          -d chat_id=${{ secrets.CHAT_ID }} \
+          -d text="${{ steps.api.outputs.response }}"
