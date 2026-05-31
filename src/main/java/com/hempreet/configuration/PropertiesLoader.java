@@ -41,6 +41,17 @@ public class PropertiesLoader {
     }
 
     public String getPrompt(String promptType) {
+
+        try {
+            String envPrompt = env.getProperty("PROMPT_" + promptType.toUpperCase());
+
+            if (envPrompt != null && !envPrompt.isBlank()) {
+                return envPrompt;
+            }
+        } catch (Exception e) {
+            log.warn("Failed to load prompt from env. Falling back to file.", e);
+        }
+
         try(InputStream inputStream  = getClass().getClassLoader().getResourceAsStream("prompts/" + promptType + "-prompt.txt")) {
 
             return new String(
