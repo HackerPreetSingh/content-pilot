@@ -1,14 +1,15 @@
 package com.hempreet.configuration;
 
-import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
-public class AiConfig {
+public class WebClientConfig {
 
     @Bean
-    public ChatClient chatClient(ChatClient.Builder builder) {
-        return builder.build();
+    public WebClient webClient() {
+        return WebClient.builder().build();
     }
 }
+

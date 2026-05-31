@@ -1,0 +1,86 @@
+{
+  "providers": {
+    "openrouter": {
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "apiKeyEnvVarName": "OPENROUTER_API_KEY",
+      "responseType": "OPENAI"
+    },
+    "groq": {
+      "baseUrl": "https://api.groq.com/openai/v1",
+      "apiKeyEnvVarName": "GROQ_API_KEY",
+      "responseType": "OPENAI"
+    },
+    "gemini": {
+      "baseUrl": "https://generativelanguage.googleapis.com",
+      "apiKeyEnvVarName": "GOOGLE_API_KEY",
+      "responseType": "GEMINI"
+    }
+  },
+
+  "models": [
+    {
+      "name": "Kimi K2.6 Free",
+      "provider": "openrouter",
+      "modelId": "moonshotai/kimi-k2.6:free",
+      "priority": 1,
+      "enabled": true,
+      "tags": ["content", "reasoning", "coding"]
+    },
+    {
+      "name": "Gemini 2.5 Flash",
+      "provider": "gemini",
+      "modelId": "gemini-2.5-flash",
+      "priority": 2,
+      "enabled": true,
+      "tags": ["content", "reasoning", "coding"]
+    },
+    {
+      "name": "Gemma 4 31B Free",
+      "provider": "openrouter",
+      "modelId": "google/gemma-4-31b-it:free",
+      "priority": 3,
+      "enabled": true,
+      "tags": ["content", "reasoning", "coding"]
+    },
+    {
+      "name": "Nemotron 3 Super Free",
+      "provider": "openrouter",
+      "modelId": "nvidia/nemotron-3-super-120b-a12b:free",
+      "priority": 4,
+      "enabled": true,
+      "tags": ["content", "reasoning"]
+    },
+    {
+      "name": "Llama 3.3 70B Versatile",
+      "provider": "groq",
+      "modelId": "llama-3.3-70b-versatile",
+      "priority": 5,
+      "enabled": true,
+      "tags": ["content", "reasoning", "coding"]
+    },
+    {
+      "name": "Gemma 4 26B A4B Free",
+      "provider": "openrouter",
+      "modelId": "google/gemma-4-26b-a4b-it:free",
+      "priority": 6,
+      "enabled": true,
+      "tags": ["content", "reasoning", "coding"]
+    },
+    {
+      "name": "Gemini 3.1 Flash Lite",
+      "provider": "gemini",
+      "modelId": "gemini-3.1-flash-lite",
+      "priority": 7,
+      "enabled": true,
+      "tags": ["content"]
+    },
+    {
+      "name": "Mixtral 8x7B",
+      "provider": "groq",
+      "modelId": "mixtral-8x7b",
+      "priority": 8,
+      "enabled": true,
+      "tags": ["content", "coding"]
+    }
+  ]
+}

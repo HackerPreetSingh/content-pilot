@@ -1,46 +1,6 @@
 spring:
   application:
     name: ContentPilot
-  ai:
-    google:
-      genai:
-        api-key: ${GOOGLE_API_KEY}
-
-
-app:
-  ai:
-    models:
-      - gemini-2.5-flash
-      - gemini-3-flash
-      - gemini-3.1-flash-lite
-      - gemini-2.5-flash-lite
-    prompt: |
-      You are a senior backend engineer writing an engaging LinkedIn post that developers actually enjoy reading.
-      Generate content using:
-
-      Topic: %s
-      Format: %s
-      Angle: %s
-
-      Guidelines:
-        - Output ONLY the final post. No explanations or extra text.
-        - Start with a strong, curiosity-driven hook.
-        - Make it engaging, slightly conversational, and human — not robotic.
-        - Add relevant emojis naturally to make it look interesting.
-        - Focus on practical insight, real-world thinking, or relatable developer pain points.
-        - Avoid generic textbook explanations.
-        - Do NOT use bold, italics, or asterisks anywhere.
-        - Do NOT mention AI, prompt, or instructions.
-
-      Structure:
-        1) Hook (attention-grabbing)
-        2) Insight / explanation (practical, real-world)
-        3) Example / scenario (relatable)
-        4) Closing takeaway (memorable line)
-        5) Add all the relevant hashtags at the end which can gather more audience, maybe related to topic or in general.
-  
-      Make it feel like something a real experienced developer would post — insightful, slightly opinionated, and valuable.
-      
 
 telegram:
   bot:

@@ -1,0 +1,40 @@
+{
+  "priority": [
+    "openrouter",
+    "groq",
+    "gemini"
+  ],
+  "providers": {
+    "openrouter": {
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "apiKeyEnvVarName": "OPENROUTER_API_KEY",
+      "responseType": "OPENAI",
+      "models": [
+        "moonshotai/kimi-k2.6:free",
+        "google/gemma-4-31b-it:free",
+        "nvidia/nemotron-3-super-120b-a12b:free",
+        "google/gemma-4-26b-a4b-it:free"
+      ]
+    },
+
+    "groq": {
+      "baseUrl": "https://api.groq.com/openai/v1",
+      "apiKeyEnvVarName": "GROQ_API_KEY",
+      "responseType": "OPENAI",
+      "models": [
+        "llama-3.3-70b-versatile",
+        "mixtral-8x7b"
+      ]
+    },
+
+    "gemini": {
+      "baseUrl": "https://generativelanguage.googleapis.com",
+      "apiKeyEnvVarName": "GOOGLE_API_KEY",
+      "responseType": "GEMINI",
+      "models": [
+        "gemini-2.5-flash",
+        "gemini-3.1-flash-lite"
+      ]
+    }
+  }
+}

@@ -1,6 +1,7 @@
 package com.hempreet.controller;
 
 import com.hempreet.dto.PromptParams;
+import com.hempreet.service.AiService;
 import com.hempreet.service.ContentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,15 +16,23 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class ContentController {
 
-    private final ContentService service;
+    private final ContentService contentService;
+
+    private final AiService aiService;
 
     @GetMapping("/getAutomatedContent")
-    ResponseEntity<?> getAutomatedContent() throws IOException {
-        return ResponseEntity.ok(service.setPromptAndMakeApiCall());
+    ResponseEntity<?> getAutomatedContent() throws Exception {
+        return ResponseEntity.ok(contentService.setPromptAndMakeApiCall());
     }
 
     @PostMapping("/getCustomContent")
-    ResponseEntity<?> getCustomContent(@RequestBody PromptParams params) throws IOException {
-        return ResponseEntity.ok(service.makeApiCall(params.topic(), params.format(), params.angle(), true));
+    ResponseEntity<?> getCustomContent(@RequestBody PromptParams params) throws Exception {
+        return ResponseEntity.ok(contentService.makeApiCall(params.topic(), params.format(), params.angle(), "generic"));
+    }
+
+    @GetMapping("/test")
+    public String testDeepSeek() throws Exception {
+
+        return contentService.setPromptAndMakeApiCall();
     }
 }

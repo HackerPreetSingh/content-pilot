@@ -46,4 +46,6 @@ public interface AppConstants {
             "You’re overengineering this",
             "This is why your system doesn’t scale"
     );
+
+    String EMPTY_RESPONSE = "Empty Response";
 }
