@@ -1,8 +1,7 @@
 package com.hempreet.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hempreet.configuration.PropertiesLoader;
-import com.hempreet.dto.Counter;
+import com.hempreet.dto.CurrentState;
 import com.hempreet.dto.aiconfig.Model;
 import com.hempreet.dto.aiconfig.ModelInfo;
 import com.hempreet.dto.aiconfig.ProviderConfig;
@@ -11,11 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import jakarta.annotation.PostConstruct;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Map;
 
 @Service
@@ -24,45 +20,15 @@ import java.util.Map;
 public class ContentService {
 
     private final AiService aiService;
-    private final ObjectMapper objectMapper;
     private final PropertiesLoader propertiesLoader;
     private final TelegramService telegramService;
-    private static final File COUNTER_FILE = new File("/tmp/counter.json");
-
-    @PostConstruct
-    public void setup() throws IOException {
-        if (!COUNTER_FILE.exists()) {
-            objectMapper.writeValue(COUNTER_FILE, new Counter());
-        }
-    }
+    private final CounterService counterService;
 
     public String setPromptAndMakeApiCall() throws Exception {
 
-        Counter indexes = objectMapper.readValue(COUNTER_FILE, Counter.class);
+        CurrentState currentState = counterService.getNextPromptState();
 
-        String topic = AppConstants.topics.get(indexes.getTopicIndex());
-        String format = AppConstants.formats.get(indexes.getFormatIndex());
-        String angle = AppConstants.angles.get(indexes.getAngleIndex());
-
-        log.info("Current State of Counter: {}, topic: {}, format: {}, angles: {}", indexes, topic, format, angle);
-
-        if (indexes.getTopicIndex() + 1 >= AppConstants.topics.size()) {
-            indexes.setTopicIndex(0);
-            indexes.setFormatIndex(indexes.getFormatIndex() + 1);
-        }
-        if (indexes.getFormatIndex() + 1 >= AppConstants.formats.size()) {
-            indexes.setFormatIndex(0);
-            indexes.setAngleIndex(indexes.getAngleIndex() + 1);
-        }
-        if (indexes.getAngleIndex() + 1 >= AppConstants.angles.size()) {
-            indexes.setAngleIndex(0);
-        }
-
-        indexes.setTopicIndex(indexes.getTopicIndex() + 1);
-
-        objectMapper.writeValue(COUNTER_FILE, indexes);
-
-        return makeApiCall(topic, format, angle, "tech");
+        return makeApiCall(currentState.getTopicName(), currentState.getFormatName(), currentState.getAngleName(), "tech");
     }
 
     public String makeApiCall(String topic, String format, String angle, String promptType) throws Exception {
